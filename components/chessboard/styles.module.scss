@@ -1,0 +1,24 @@
+$grid-rows: 8;
+$grid-columns: 8;
+
+// Define the width and height of each grid cell
+$cell-width: 100px;
+$cell-height: 100px;
+
+// Define the background colors for the chessboard pattern
+$color1: #ccc; // Color 1
+$color2: #999; // Color 2
+
+.grid_Container {
+    display: grid;
+    grid-template-columns: repeat(#{$grid-columns}, #{$cell-width});
+    grid-template-rows: repeat(#{$grid-rows}, #{$cell-height});
+
+    .grid_Cell_Black {
+        background-color: var(--black);
+    }
+
+    .grid_Cell_White {
+        background-color: $color1;
+    }
+}
