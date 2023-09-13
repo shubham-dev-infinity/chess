@@ -26,4 +26,6 @@ export class King {
         let possiblePathArray: number[][] = [];
         return possiblePathArray
     }
+    makeMove() { }
+
 }

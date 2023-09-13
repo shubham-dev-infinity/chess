@@ -6,14 +6,11 @@ import { Pawn } from "@/Pieces/pawn";
 import { Queen } from "@/Pieces/queen";
 import { Rock } from "@/Pieces/rock";
 import { chessBoardProps } from "@/types";
+import * as _ from "lodash";
 
 export function cloneTheBoard(chessBoard: chessBoardProps): chessBoardProps {
 
-    const clonned_Chessboard: chessBoardProps = [];
-    for (let row = 0; row < chessBoard.length; row++) {
-        clonned_Chessboard[row] = [...chessBoard[row]]
-    }
-    return clonned_Chessboard;
+    return _.cloneDeep(chessBoard)
 }
 
 export default function getChessBoard(): chessBoardProps {

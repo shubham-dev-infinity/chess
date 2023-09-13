@@ -1,13 +1,16 @@
 'ues client'
-import getChessBoard from '@/utils/chessboard.util'
-import React from 'react'
+import React, { memo } from 'react'
 import Square from '../square';
 import styles from './styles.module.scss'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '@/store';
+
 
 // import { chessBoardProps } from '@/types';
 
 const ChessBoard = () => {
-    const chessBoard_ = getChessBoard()
+    const chessBoard_ = useSelector((state: RootState) => state.chessBoard.chessBoard)
+
 
     function prepareChessBoard() {
         const preparedChessBoard: any[] = new Array();   //need to work here as any type is not good practice while using typescript
@@ -27,6 +30,7 @@ const ChessBoard = () => {
         }
         return preparedChessBoard;
     }
+    console.log(chessBoard_, 'chessBoard')
     return (
         <>
             <div className={styles.grid_Container}>
@@ -36,4 +40,4 @@ const ChessBoard = () => {
     )
 }
 
-export default ChessBoard
+export default memo(ChessBoard)

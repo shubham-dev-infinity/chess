@@ -24,4 +24,7 @@ export class Rock {
         let possiblePathArray: number[][] = [];
         return possiblePathArray
     }
+
+    makeMove() { }
+
 }

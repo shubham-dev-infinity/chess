@@ -65,3 +65,65 @@ export function possitionParser(column: string, row: string): [number, number] {
     return [position_Row, position_Column]
 
 }
+
+export function possitionParserToStandardPosition(row: number, column: number): string {
+    let position_row: string = ''
+    let position_Column: string = ''
+
+    //column position parsing
+    switch (row) {
+        case 0:
+            position_row = '8'
+            break
+        case 1:
+            position_row = '7'
+            break
+        case 2:
+            position_row = '6'
+            break
+        case 3:
+            position_row = '5'
+            break
+        case 4:
+            position_row = '4'
+            break
+        case 5:
+            position_row = '3'
+            break
+        case 6:
+            position_row = '2'
+            break
+        case 7:
+            position_row = '1'
+            break
+    }
+
+    switch (column) {
+        case 0:
+            position_Column = 'a'
+            break
+        case 1:
+            position_Column = 'b'
+            break
+        case 2:
+            position_Column = 'c'
+            break
+        case 3:
+            position_Column = 'd'
+            break
+        case 4:
+            position_Column = 'e'
+            break
+        case 5:
+            position_Column = 'f'
+            break
+        case 6:
+            position_Column = 'g'
+            break
+        case 7:
+            position_Column = 'h'
+            break
+    }
+
+    return position_Column + position_row
+}
