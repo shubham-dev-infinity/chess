@@ -25,4 +25,7 @@ export class Queen {
         let possiblePathArray: number[][] = [];
         return possiblePathArray
     }
+
+    makeMove() { }
+
 }

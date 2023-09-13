@@ -118,4 +118,6 @@ export class Bishop {
         return possiblePathArray
 
     }
+    makeMove() { }
+
 }

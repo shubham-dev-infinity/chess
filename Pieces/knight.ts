@@ -152,4 +152,6 @@ export class Knight {
         }
         return possiblePathArray
     }
+
+    makeMove() { }
 }
