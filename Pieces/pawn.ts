@@ -30,7 +30,6 @@ export class Pawn {
 
     possiblePath(chessBoard: chessBoardProps): number[][] {
         let [position_Row, position_Column]: [number, number] = possitionParser(this.currentPosition[0], this.currentPosition[1])
-        console.log(position_Row,position_Column,'as')
         let possiblePathArray: number[][] = [];
         //pawn only can move in one direction. and kill in diagonal direction. so we will have 3 posibilities
         // suppose current position is i->row , j->columns
@@ -81,17 +80,18 @@ export class Pawn {
     }
 
     makeMove(chessBoard: chessBoardProps, position_Row: number, position_Column: number): chessBoardProps {
+        console.log(this.currentPosition, 'before')
         let [position_Row_Current, position_Column_Current]: [number, number] = possitionParser(this.currentPosition[0], this.currentPosition[1])
-        let clonned_Chessboard: chessBoardProps | null = _.cloneDeep(chessBoard)
+        let clonned_Chessboard: chessBoardProps | null = cloneTheBoard(chessBoard)
 
-        clonned_Chessboard[position_Row][position_Column] = chessBoard[position_Row_Current][position_Column_Current]
+        clonned_Chessboard[position_Row][position_Column] = this
         clonned_Chessboard[position_Row_Current][position_Column_Current] = null
         if (this.isFirstMove) {
             this.isFirstMove = !this.isFirstMove;
         }
 
-        console.log(possitionParserToStandardPosition(position_Row, position_Column),'as')
         this.currentPosition = possitionParserToStandardPosition(position_Row, position_Column)
+        console.log(this.currentPosition, 'after')
         return clonned_Chessboard
     }
 }
