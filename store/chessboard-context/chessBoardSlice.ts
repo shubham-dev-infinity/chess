@@ -8,10 +8,10 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 interface stateProps {
     chessBoard: chessBoardProps;
     activePaths: number[][];
-    activePiece: piecesType | null;
+    activePiecePosition: number[];
 }
 
-const initialState: stateProps = { chessBoard: getChessBoard(), activePaths: [], activePiece: null }
+const initialState: stateProps = { chessBoard: getChessBoard(), activePaths: [], activePiecePosition: [] }
 
 
 export const chessBoardSlice = createSlice({
@@ -21,9 +21,9 @@ export const chessBoardSlice = createSlice({
         makeMove: (state, action: PayloadAction<{ chessBoard: chessBoardProps }>) => {
             state.chessBoard = action.payload.chessBoard
         },
-        setActivePathsWithPiece: (state, action: PayloadAction<{ activePaths: number[][], activePiece: piecesType | null }>) => {
+        setActivePathsWithPiece: (state, action: PayloadAction<{ activePaths: number[][], activePiecePosition: number[] }>) => {
             state.activePaths = action.payload.activePaths
-            state.activePiece = action.payload.activePiece
+            state.activePiecePosition = action.payload.activePiecePosition
         },
     }
 })

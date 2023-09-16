@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { makeMove, setActivePathsWithPiece } from '@/store/chessboard-context/chessBoardSlice';
 import { cloneTheBoard } from '@/utils/chessboard.util';
 import { RootState } from '@/store';
+import { findPossiblePaths, movePiece } from '@/utils/board.move.util';
 
 interface squareProps {
     color: string;
@@ -19,36 +20,48 @@ interface squareProps {
 }
 
 const Square = (args: squareProps) => {
-    const { className, piece, chessBoard, row, column } = args
+    const chessBoard = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard))
+
+    const { className, piece, row, column } = args
     const dispatch = useDispatch()
     const activePaths_ = useSelector((state: RootState) => state.chessBoard.activePaths)
-    const activePiece_ = useSelector((state: RootState) => state.chessBoard.activePiece)
+    const activePiecePosition_ = useSelector((state: RootState) => state.chessBoard.activePiecePosition)
 
 
     const makeMoveOnClick = () => {
         if (piece) {
-            if (activePiece_ === piece) return
-            const possiblepaths = piece?.possiblePath(chessBoard)
-            dispatch(setActivePathsWithPiece({ activePaths: possiblepaths, activePiece: piece }))
+            // if (activePiecePosition_.length === 0) return
+            const possiblepaths = findPossiblePaths(chessBoard, piece)
+            dispatch(setActivePathsWithPiece({ activePaths: possiblepaths, activePiecePosition: [row, column] }))
+            console.log(possiblepaths, 'ps')
         } else {
             // we will check given click square is first avaialbe to move for active piece?
             if (activePaths_.length !== 0) {
-                for (let i = 0; i < activePaths_.length; i++) {
-                    if (activePaths_[i].includes(row) && activePaths_[i].includes(column)) {
-                        let payLoad = activePiece_?.makeMove(cloneTheBoard(chessBoard), row, column)
-                        if (payLoad) {
-                            dispatch(makeMove({ chessBoard: payLoad }))
-                            dispatch(setActivePathsWithPiece({ activePaths: [], activePiece: null }))
-                        }
+                if (isInclude()) {
+                    let payLoad = movePiece(chessBoard, chessBoard[activePiecePosition_[0]][activePiecePosition_[1]], row, column)
+                    if (payLoad) {
+                        dispatch(makeMove({ chessBoard: payLoad }))
+                        dispatch(setActivePathsWithPiece({ activePaths: [], activePiecePosition: [] }))
                     }
                 }
             }
         }
-        console.log(activePiece_)
+    }
+
+    const isInclude = (): boolean => {
+        for (let i = 0; i < activePaths_.length; i++) {
+            if (activePaths_[i][0] === row && activePaths_[i][1] === column) {
+                return true
+            }
+        }
+        return false;
     }
 
     return (
-        <div className={`${className} ${styles.piece_Wrapper}`} onClick={() => makeMoveOnClick()}><Piece type={!piece ? null : piece?.type} /></div>
+        <div className={`${className} ${styles.piece_Wrapper}`} onClick={() => makeMoveOnClick()}>
+            <div className={isInclude() ? styles.activePath : ''} />
+            <Piece type={!piece ? null : piece?.type} color={piece?.color} />
+        </div>
     )
 }
 

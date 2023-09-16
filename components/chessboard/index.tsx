@@ -10,8 +10,7 @@ import { cloneTheBoard } from '@/utils/chessboard.util';
 // import { chessBoardProps } from '@/types';
 
 const ChessBoard = () => {
-    const chessBoard_ = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard)
-)
+    const chessBoard_ = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard))
 
     function prepareChessBoard() {
         const preparedChessBoard: any[] = new Array();   //need to work here as any type is not good practice while using typescript
@@ -29,7 +28,7 @@ const ChessBoard = () => {
                 preparedChessBoard[i][j] = <Square key={i.toString() + j.toString()} row={i} column={j} piece={chessBoard_[i][j]} color={color_} className={color_ === 'black' ? styles.grid_Cell_Black : styles.grid_Cell_White} chessBoard={chessBoard_} />
             }
         }
-        return preparedChessBoard;      
+        return preparedChessBoard;
     }
     return (
         <>

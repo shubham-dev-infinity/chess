@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react'
 
 
-const pieceImageMap: Record<string, string> = {
+const whitePieceImageMap: Record<string, string> = {
     'pawn': '/pieces/pawn.png',
     'knight': '/pieces/knight.png',
     'bishop': '/pieces/bishop.png',
@@ -11,13 +11,22 @@ const pieceImageMap: Record<string, string> = {
     'king': '/pieces/king.png',
     'queen': '/pieces/queen.png',
 }
-const Piece = ({ type }: { type: string | null }) => {
+
+const blackPieceImageMap: Record<string, string> = {
+    'pawn': '/pieces/blackPwan.png',
+    'knight': '/pieces/blackKnight.png',
+    'bishop': '/pieces/blackBishop.png',
+    'rock': '/pieces/blackRock.png',
+    'king': '/pieces/blackKing.png',
+    'queen': '/pieces/blackQueen.png',
+}
+const Piece = ({ type, color }: { type: string | null, color?: string }) => {
     if (!type) {
         return null;
     }
     return (
         <>
-            <Image src={pieceImageMap[type]} alt={type} width={50} height={50} />
+            <Image src={color==='white' ?  whitePieceImageMap[type] : blackPieceImageMap[type]} alt={type} width={50} height={50} />
         </>
     )
 }
