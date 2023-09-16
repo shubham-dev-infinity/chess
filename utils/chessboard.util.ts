@@ -76,5 +76,60 @@ export default function getChessBoard(): chessBoardProps {
     const Queen_d1 = new Queen({ color: 'white', name: 'queen_d1', currentPosition: 'd1', startingSqareColor: 'white' })
 
     chessBoard[7][3] = Queen_d1;
+
+
+
+
+
+    //let place all 16 pieces of black
+    const Pawn_a7 = new Pawn({ color: 'black', name: 'pawn_a7', currentPosition: 'a7', startingSqareColor: 'white' });
+    const Pawn_b7 = new Pawn({ color: 'black', name: 'pawn_b7', currentPosition: 'b7', startingSqareColor: 'black' });
+    const Pawn_c7 = new Pawn({ color: 'black', name: 'pawn_c7', currentPosition: 'c7', startingSqareColor: 'white' });
+    const Pawn_d7 = new Pawn({ color: 'black', name: 'pawn_d7', currentPosition: 'd7', startingSqareColor: 'black' });
+    const Pawn_e7 = new Pawn({ color: 'black', name: 'pawn_e7', currentPosition: 'e7', startingSqareColor: 'white' });
+    const Pawn_f7 = new Pawn({ color: 'black', name: 'pawn_f7', currentPosition: 'f7', startingSqareColor: 'black' });
+    const Pawn_g7 = new Pawn({ color: 'black', name: 'pawn_g7', currentPosition: 'g7', startingSqareColor: 'white' });
+    const Pawn_h7 = new Pawn({ color: 'black', name: 'pawn_h7', currentPosition: 'h7', startingSqareColor: 'black' });
+
+    chessBoard[1][0] = Pawn_a7;
+    chessBoard[1][1] = Pawn_b7;
+    chessBoard[1][2] = Pawn_c7;
+    chessBoard[1][3] = Pawn_d7;
+    chessBoard[1][4] = Pawn_e7;
+    chessBoard[1][5] = Pawn_f7;
+    chessBoard[1][6] = Pawn_g7;
+    chessBoard[1][7] = Pawn_h7;
+
+    //let place both white sqare and black square knight for black
+    const Knight_b8 = new Knight({ color: 'black', name: 'knight_b8', currentPosition: 'b8', startingSqareColor: 'black' });
+    const Knight_g8 = new Knight({ color: 'black', name: 'knight_g8', currentPosition: 'g8', startingSqareColor: 'black' });
+
+    chessBoard[0][1] = Knight_b8;
+    chessBoard[0][6] = Knight_g8;
+
+    //let place both white sqaure and black square bishop
+    const Bishop_c8 = new Bishop({ color: 'black', name: 'bishop_c8', currentPosition: 'c8', startingSqareColor: 'white' });
+    const Bishop_f8 = new Bishop({ color: 'black', name: 'bishop_f8', currentPosition: 'f8', startingSqareColor: 'black' });
+
+    chessBoard[0][2] = Bishop_c8;
+    chessBoard[0][5] = Bishop_f8;
+
+    //let place both white sqaure and black square rock
+    const Rock_a8 = new Rock({ color: 'black', name: 'rock_a8', currentPosition: 'a8', startingSqareColor: 'white' });
+    const Rock_h8 = new Rock({ color: 'black', name: 'rock_h8', currentPosition: 'h8', startingSqareColor: 'black' });
+
+    chessBoard[0][0] = Rock_a8;
+    chessBoard[0][7] = Rock_h8;
+
+    //let place king -> for white's king it will place in black square in starting
+    const King_e8 = new King({ color: 'black', name: 'king_e8', currentPosition: 'e8', startingSqareColor: 'white' })
+
+    chessBoard[0][4] = King_e8;
+
+    //let place queen -> for white's queen  it will place in white square in starting
+    const Queen_d8 = new Queen({ color: 'black', name: 'queen_d8', currentPosition: 'd8', startingSqareColor: 'black' })
+
+    chessBoard[0][3] = Queen_d8;
+
     return chessBoard
 }

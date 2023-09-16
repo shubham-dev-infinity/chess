@@ -2,15 +2,15 @@
 import React, { memo } from 'react'
 import Square from '../square';
 import styles from './styles.module.scss'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@/store';
+import { cloneTheBoard } from '@/utils/chessboard.util';
 
 
 // import { chessBoardProps } from '@/types';
 
 const ChessBoard = () => {
-    const chessBoard_ = useSelector((state: RootState) => state.chessBoard.chessBoard)
-
+    const chessBoard_ = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard))
 
     function prepareChessBoard() {
         const preparedChessBoard: any[] = new Array();   //need to work here as any type is not good practice while using typescript
@@ -25,12 +25,11 @@ const ChessBoard = () => {
         for (let i = 0; i < row_; i++) {
             for (let j = 0; j < column_; j++) {
                 const color_ = (i + j) % 2 === 0 ? 'white' : 'black';
-                preparedChessBoard[i][j] = <Square key={i.toString() + j.toString()} piece={chessBoard_[i][j]} color={color_} className={color_ === 'black' ? styles.grid_Cell_Black : styles.grid_Cell_White} chessBoard={chessBoard_} />
+                preparedChessBoard[i][j] = <Square key={i.toString() + j.toString()} row={i} column={j} piece={chessBoard_[i][j]} color={color_} className={color_ === 'black' ? styles.grid_Cell_Black : styles.grid_Cell_White} chessBoard={chessBoard_} />
             }
         }
         return preparedChessBoard;
     }
-    console.log(chessBoard_, 'chessBoard')
     return (
         <>
             <div className={styles.grid_Container}>

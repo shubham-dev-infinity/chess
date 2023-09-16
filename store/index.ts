@@ -3,8 +3,9 @@ import chessBoardSlice from './chessboard-context/chessBoardSlice'
 
 export const store = configureStore({
     reducer: {
-        chessBoard: chessBoardSlice
+        chessBoard: chessBoardSlice,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 })
 
 
