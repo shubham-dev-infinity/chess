@@ -9,9 +9,10 @@ interface stateProps {
     chessBoard: chessBoardProps;
     activePaths: number[][];
     activePiecePosition: number[];
+    whoseMove: 'white' | 'black';
 }
 
-const initialState: stateProps = { chessBoard: getChessBoard(), activePaths: [], activePiecePosition: [] }
+const initialState: stateProps = { chessBoard: getChessBoard(), activePaths: [], activePiecePosition: [-1,-1], whoseMove: 'white' }
 
 
 export const chessBoardSlice = createSlice({
@@ -20,8 +21,10 @@ export const chessBoardSlice = createSlice({
     reducers: {
         makeMove: (state, action: PayloadAction<{ chessBoard: chessBoardProps }>) => {
             state.chessBoard = action.payload.chessBoard
+            state.whoseMove = state.whoseMove === 'white' ? 'black' : 'white';
         },
         setActivePathsWithPiece: (state, action: PayloadAction<{ activePaths: number[][], activePiecePosition: number[] }>) => {
+            console.log(action.payload.activePiecePosition,'active')
             state.activePaths = action.payload.activePaths
             state.activePiecePosition = action.payload.activePiecePosition
         },

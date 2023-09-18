@@ -20,16 +20,32 @@ interface squareProps {
 }
 
 const Square = (args: squareProps) => {
-    const chessBoard = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard))
-
     const { className, piece, row, column } = args
+
+    const chessBoard = cloneTheBoard(useSelector((state: RootState) => state.chessBoard.chessBoard))
+    const whoseMove = useSelector((state: RootState) => state.chessBoard.whoseMove)
+
     const dispatch = useDispatch()
     const activePaths_ = useSelector((state: RootState) => state.chessBoard.activePaths)
-    const activePiecePosition_ = useSelector((state: RootState) => state.chessBoard.activePiecePosition)
+    const [activePieceRowPosition_, activePieceColumnPosition_] = useSelector((state: RootState) => state.chessBoard.activePiecePosition)
 
 
+    console.log(chessBoard, 'chess')
     const makeMoveOnClick = () => {
-        if (piece) {
+        console.log(activePieceColumnPosition_, activePieceRowPosition_, 'pos')
+
+        const activePiece = (activePieceRowPosition_ === -1 && activePieceColumnPosition_ === -1) ? null : chessBoard[activePieceRowPosition_][activePieceColumnPosition_]
+
+        if (!piece && activePaths_.length === 0) return; // if you click out any empty box without selecting piece then this function will do nothing
+
+        if (piece && piece?.color !== whoseMove && activePaths_.length ===0) {
+            alert(whoseMove + "'s move")
+            return;
+        }
+
+
+        if (piece && activePaths_.length === 0) {
+            //ok we get click on piece , which
             // if (activePiecePosition_.length === 0) return
             const possiblepaths = findPossiblePaths(chessBoard, piece)
             dispatch(setActivePathsWithPiece({ activePaths: possiblepaths, activePiecePosition: [row, column] }))
@@ -38,10 +54,10 @@ const Square = (args: squareProps) => {
             // we will check given click square is first avaialbe to move for active piece?
             if (activePaths_.length !== 0) {
                 if (isInclude()) {
-                    let payLoad = movePiece(chessBoard, chessBoard[activePiecePosition_[0]][activePiecePosition_[1]], row, column)
+                    let payLoad = movePiece(chessBoard, activePiece, row, column)
                     if (payLoad) {
                         dispatch(makeMove({ chessBoard: payLoad }))
-                        dispatch(setActivePathsWithPiece({ activePaths: [], activePiecePosition: [] }))
+                        dispatch(setActivePathsWithPiece({ activePaths: [], activePiecePosition: [-1, -1] }))
                     }
                 }
             }
@@ -58,7 +74,7 @@ const Square = (args: squareProps) => {
     }
 
     return (
-        <div className={`${className} ${styles.piece_Wrapper}`} onClick={() => makeMoveOnClick()}>
+        <div className={`${className} ${styles.piece_Wrapper}`} onClick={() => makeMoveOnClick()} draggable onDragStart={()=> makeMoveOnClick()} onDrop={() => makeMoveOnClick()} onDragOver={(e) => e.preventDefault()}>
             <div className={isInclude() ? styles.activePath : ''} />
             <Piece type={!piece ? null : piece?.type} color={piece?.color} />
         </div>

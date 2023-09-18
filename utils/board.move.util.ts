@@ -294,6 +294,79 @@ function bishopPossiblePaths(chessBoard: chessBoardProps, piece: piecesType) {
 function rockPossiblePaths(chessBoard: chessBoardProps, piece: piecesType) {
     let [position_Row, position_Column]: [number, number] = possitionParser(piece.currentPosition[0], piece.currentPosition[1])
     let possiblePathArray: number[][] = [];
+
+    //rock can move in plus direction so we have four ways to check it's possible paths
+
+    //first, forwad direction  
+    //Note : all this move are counte basis on white's propspective
+    let new_Position_Row = position_Row - 1;
+    let new_Position_Column = position_Column
+
+    while (new_Position_Row >= 0) {
+        if ((chessBoard[new_Position_Row][new_Position_Column] && chessBoard[new_Position_Row][new_Position_Column]?.color !== piece.color) || chessBoard[new_Position_Row][new_Position_Column] === null) {
+            reUsableTomovePiece(chessBoard, piece, position_Row, position_Column, new_Position_Row, new_Position_Column, possiblePathArray)
+
+            if (chessBoard[new_Position_Row][new_Position_Column]) {
+                break;
+            }
+        } else {
+            break;
+        }
+        new_Position_Row -= 1;
+    }
+
+    //backward direction
+    new_Position_Row = position_Row + 1;
+    new_Position_Column = position_Column
+
+    while (new_Position_Row <= 7) {
+        if ((chessBoard[new_Position_Row][new_Position_Column] && chessBoard[new_Position_Row][new_Position_Column]?.color !== piece.color) || chessBoard[new_Position_Row][new_Position_Column] === null) {
+            reUsableTomovePiece(chessBoard, piece, position_Row, position_Column, new_Position_Row, new_Position_Column, possiblePathArray)
+
+            if (chessBoard[new_Position_Row][new_Position_Column]) {
+                break;
+            }
+        } else {
+            break;
+        }
+        new_Position_Row += 1;
+    }
+
+    //right direction
+    new_Position_Row = position_Row;
+    new_Position_Column = position_Column + 1;
+
+    while (new_Position_Column <= 7) {
+        if ((chessBoard[new_Position_Row][new_Position_Column] && chessBoard[new_Position_Row][new_Position_Column]?.color !== piece.color) || chessBoard[new_Position_Row][new_Position_Column] === null) {
+            reUsableTomovePiece(chessBoard, piece, position_Row, position_Column, new_Position_Row, new_Position_Column, possiblePathArray)
+
+            if (chessBoard[new_Position_Row][new_Position_Column]) {
+                break;
+            }
+        } else {
+            break;
+        }
+        new_Position_Column += 1;
+    }
+
+    //left direction
+    new_Position_Row = position_Row;
+    new_Position_Column = position_Column - 1;
+
+    while (new_Position_Column >= 0) {
+        if ((chessBoard[new_Position_Row][new_Position_Column] && chessBoard[new_Position_Row][new_Position_Column]?.color !== piece.color) || chessBoard[new_Position_Row][new_Position_Column] === null) {
+            reUsableTomovePiece(chessBoard, piece, position_Row, position_Column, new_Position_Row, new_Position_Column, possiblePathArray)
+
+            if (chessBoard[new_Position_Row][new_Position_Column]) {
+                break;
+            }
+        } else {
+            break;
+        }
+        new_Position_Column -= 1;
+    }
+
+
     return possiblePathArray
 }
 
